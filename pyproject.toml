@@ -1,0 +1,17 @@
+[project]
+name = "devops-final-backend"
+version = "0.1.0"
+description = "FastAPI Backend for the DevOps Final Project"
+readme = "README.md"
+authors = [
+    { name = "Tudor Huza", email = "huzatudor@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+devops-final-backend = "devops_final_backend:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
