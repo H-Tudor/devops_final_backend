@@ -23,51 +23,6 @@ services:
     networks:
       - devops-final
 
-  minio:
-    image: quay.io/minio/minio:RELEASE.2025-07-23T15-54-02Z-cpuv1
-    container_name: devops-final-minio
-    command: ["server", "/data", "--console-address", ":9001"]
-    env_file:
-      - ${PWD}/containers/minio/.env
-    ports:
-      - 9000:9000
-      - 9001:9001
-    networks:
-      - devops-final
-    volumes:
-      - ${PWD}/containers/minio/data/:/data
-    
-  # traefik:
-  #   image: traefik:v3.5.0
-  #   container_name: devops-final-traefik
-  #   command:
-  #     - "--configFile=/etc/traefik/traefik.yml"
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #     - "8081:8080"
-  #   networks:
-  #     - devops-final
-  #   volumes:
-  #     - "/var/run/docker.sock:/var/run/docker.sock:ro"
-  #     - "${PWD}/containers/traefik/certs:/certs"
-  #     - "${PWD}/containers/traefik/config.yml:/etc/traefik/traefik.yml:ro"
-
-  # whoami:
-  #   image: traefik/whoami
-  #   container_name: devops-final-whoami
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.whoami.rule=Host(`localhost`)"
-  #     - "traefik.http.routers.whoami.entrypoints=websecure"
-  #     - "traefik.http.routers.whoami.tls=true"
-  #     - "traefik.http.services.whoami.loadbalancer.server.port=80"
-  #   expose:
-  #     - "80"
-  #   networks:
-  #     - devops-final
-
-
 networks:
   devops-final:
     driver: bridge
