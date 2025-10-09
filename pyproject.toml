@@ -1,6 +1,6 @@
 [project]
 name = "devops-final-backend"
-version = "0.1.0"
+version = "0.2.0"
 description = "FastAPI Backend for the DevOps Final Project"
 readme = "README.md"
 authors = [
@@ -13,7 +13,10 @@ dependencies = [
     "pydantic-settings>=2.11.0",
     "python-multipart>=0.0.20",
     "uvicorn[standard]>=0.37.0",
-    "langchain=0.3.27"
+    "langchain==0.3.27",
+    "langchain-ollama>=0.3.10",
+    "langchain-community>=0.3.30",
+    "python-keycloak[openid]>=5.8.1",
 ]
 
 [project.scripts]

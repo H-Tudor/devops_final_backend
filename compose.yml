@@ -1,23 +1,10 @@
 services:
-  postgres:
-    image: postgres:16.9-alpine3.22
-    container_name: devops-final-postgres
-    env_file:
-      - ${PWD}/containers/postgres/.env
-    ports:
-      - 5432:5432
-    networks:
-      - devops-final
-    volumes:
-      - ${PWD}/containers/postgres/data/:/var/lib/postgresql/data/
-      - ${PWD}/containers/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-
   keycloack:
     image: quay.io/keycloak/keycloak:26.3.2
     container_name: devops-final-keycloack
     command: ["start-dev"]
     env_file:
-      - ${PWD}/containers/keycloack/.env
+      - .env.keycloak
     ports:
       - 8080:8080
     networks:
