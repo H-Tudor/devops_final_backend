@@ -64,7 +64,7 @@ class ComposeGenerator(AbstractGenerator):
         result.append(
             LLMResponse(
                 type=ResponseType.COMPOSE_FILE,
-                name=prompt_params["project"],
+                name='compose.yml',
                 data=safe_dump(parsed_data, sort_keys=False),
             )
         )

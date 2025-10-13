@@ -17,7 +17,13 @@ class ComposeGenerationParameters(BaseModel):
             """
     )
     project: str
-    network_name: str
+    network_name: str = Field(
+        max_length=32,
+        description="""
+            Name of the network the generated docker compose will use 
+            The name will have a length of no more than 32 chars and no spaces
+            """
+    )
     network_exists: bool
     volume_mount: bool
 
@@ -32,5 +38,15 @@ class ComposeGenerationParameters(BaseModel):
 
             if not IMAGE_REGEX.fullmatch(s):
                 raise ValueError(f"Invalid service name: {s}")
+
+        return v
+
+    @field_validator("network_name", mode="before")
+    def normalize_network_name(cls, v):
+        if not isinstance(v, str):
+            raise ValueError("network name must be a string")
+
+        if len(v) > 32 or " " in v:
+            raise ValueError(f"Invalid network name: {v}")
 
         return v
