@@ -1,6 +1,6 @@
 [project]
 name = "devops-final-backend"
-version = "0.2.0"
+version = "0.3.0"
 description = "FastAPI Backend for the DevOps Final Project"
 readme = "README.md"
 authors = [
@@ -35,11 +35,8 @@ lint.extend-select = ["I"]
 ignore = ["venv", ".env", "build", "dist"]
 disable = [
     "C0114",  # missing-module-docstring
-    # "C0115",  # missing-class-docstring
-    # "C0116",  # missing-function-docstring
     "R0903",  # too-few-public-methods
     "R0801",  # duplicate-code
-    # "R1732",  # consider-using-with
     "W0621",  # redefined-outer-name
     "W0104",  # pointless-statement
 ]
