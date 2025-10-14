@@ -16,7 +16,7 @@ dependencies = [
     "langchain==0.3.27",
     "langchain-ollama>=0.3.10",
     "langchain-community>=0.3.30",
-    "python-keycloak[openid]>=5.8.1",
+    "python-keycloak>=5.8.1",
 ]
 
 [project.scripts]
@@ -30,3 +30,27 @@ build-backend = "hatchling.build"
 line-length = 120
 fix = true
 lint.extend-select = ["I"]
+
+[tool.pylint]
+ignore = ["venv", ".env", "build", "dist"]
+disable = [
+    "C0114",  # missing-module-docstring
+    # "C0115",  # missing-class-docstring
+    # "C0116",  # missing-function-docstring
+    "R0903",  # too-few-public-methods
+    "R0801",  # duplicate-code
+    # "R1732",  # consider-using-with
+    "W0621",  # redefined-outer-name
+    "W0104",  # pointless-statement
+]
+output-format = "colorized"
+good-names = ["i", "j", "k", "ex", "Run", "_"]
+max-line-length = 120
+extension-pkg-whitelist = ["pydantic"]
+ignored-modules = ["typing_extensions"]
+
+[dependency-groups]
+dev = [
+    "pylint>=4.0.0",
+    "ruff>=0.14.0",
+]

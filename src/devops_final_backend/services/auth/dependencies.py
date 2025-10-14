@@ -11,15 +11,27 @@ keycloak_openid = KeycloakOpenID(
     client_secret_key=settings.keycloak_client_secret,
 )
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.keycloak_url}/realms/{settings.keycloak_realm}/protocol/openid-connect/token")
+oauth2_scheme = OAuth2PasswordBearer(
+    description="Keycloak Direct Access Auth Provider for Client Services Authentification",
+    tokenUrl=f"{settings.keycloak_url}/realms/{settings.keycloak_realm}/protocol/openid-connect/token",
+    refreshUrl=f"{settings.keycloak_url}/realms/{settings.keycloak_realm}/protocol/openid-connect/token",
+)
 
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
+def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
+    """Validate incoming auht tokens against keycloak auth provider
+
+    Raises:
+        HTTPException: 401 if keycloack does not recognize token or the user info does not contain a subject id
+
+    Returns:
+        dict: user info dictionary
+    """
+
     try:
         user_info = keycloak_openid.introspect(token)
     except Exception as e:
-        print(e)
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token") from e
 
     if not user_info.get("sub"):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid user info")

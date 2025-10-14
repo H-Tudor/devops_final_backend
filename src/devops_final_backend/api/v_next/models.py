@@ -9,6 +9,10 @@ IMAGE_REGEX = re.compile(
 
 
 class ComposeGenerationParameters(BaseModel):
+    """
+    Docker Compose File generation parameters as expected by ComposeGenerator
+    """
+
     services: list[str] = Field(
         description="""
             Services to deploy as a list or comma-separated string.
@@ -16,7 +20,6 @@ class ComposeGenerationParameters(BaseModel):
             and with only the following chars: a-z, A-Z, 0-9, [., _, -, :, +] 
             """
     )
-    project: str
     network_name: str = Field(
         max_length=32,
         description="""
@@ -27,8 +30,12 @@ class ComposeGenerationParameters(BaseModel):
     network_exists: bool
     volume_mount: bool
 
+    @classmethod
     @field_validator("services", mode="before")
-    def normalize_services(cls, v):
+    def normalize_services(cls, v: list):
+        """
+        Prevent LLM Injection in the services input
+        """
         if not isinstance(v, list):
             raise ValueError("services must be a list")
 
@@ -41,8 +48,12 @@ class ComposeGenerationParameters(BaseModel):
 
         return v
 
+    @classmethod
     @field_validator("network_name", mode="before")
-    def normalize_network_name(cls, v):
+    def normalize_network_name(cls, v: str):
+        """
+        Prevent LLM Injection in the services input
+        """
         if not isinstance(v, str):
             raise ValueError("network name must be a string")
 
