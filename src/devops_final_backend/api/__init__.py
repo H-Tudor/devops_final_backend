@@ -30,7 +30,7 @@ def index():
     return RedirectResponse("/docs", status.HTTP_302_FOUND)
 
 
-@app.get("/version ", tags=["Version"])
+@app.get("/version", tags=["Version"])
 def get_version() -> str:
     """
     Controll endpoint that validates the app is alive and return's the desired api version to be used
