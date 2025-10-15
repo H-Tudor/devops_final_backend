@@ -17,7 +17,7 @@ class LLMError(Exception):
 
 class ModelFailedToRespond(LLMError):
     """Raised when a response could not be obtained from the model
-    
+
     Reasons include
     - model api is down
     - model api auth failed

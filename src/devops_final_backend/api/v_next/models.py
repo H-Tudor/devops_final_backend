@@ -25,7 +25,7 @@ class ComposeGenerationParameters(BaseModel):
         description="""
             Name of the network the generated docker compose will use 
             The name will have a length of no more than 32 chars and no spaces
-            """
+            """,
     )
     network_exists: bool
     volume_mount: bool

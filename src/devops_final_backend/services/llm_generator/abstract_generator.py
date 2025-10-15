@@ -13,7 +13,7 @@ from .models import LLMResponse
 
 class AbstractGenerator(ABC):
     """An abstraction of the LLM Generator that contains common or required methods
-    
+
     Class Constants:
     - TEMPERATURE (int): controls model imagination
     - SYSTEM_PROMPT (str): describes the role assumed by the LLM

@@ -22,7 +22,7 @@ app.add_middleware(
 def index():
     """
     Root Route that will automatically redirect to the docs page if the application is in debug mode,
-    else will return a 404 route not found 
+    else will return a 404 route not found
     """
     if not settings.debug:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)

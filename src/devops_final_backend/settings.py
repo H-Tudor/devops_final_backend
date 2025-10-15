@@ -8,6 +8,7 @@ class Settings(BaseSettings):
 
     class Config:
         """Settings retrieval parameters"""
+
         env_file = Path(".env") if Path(".env").exists() else None
         env_file_encoding = "utf-8"
 

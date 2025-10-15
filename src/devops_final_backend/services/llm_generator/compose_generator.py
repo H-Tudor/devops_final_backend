@@ -48,7 +48,7 @@ class ComposeGenerator(AbstractGenerator):
                     Each entry may specify an image in one of the following forms:
                     "redis", "mariadb:12", "quay.io/keycloak/keycloak:26.3.2", etc.
                     - network_name (str): Name of the Docker network to include in the compose file.
-                    - network_exists (bool): If True, the network is declared as external; 
+                    - network_exists (bool): If True, the network is declared as external;
                     otherwise, a new network definition is created.
                     - volume_mount (bool): If True, volumes are mounted in Docker’s default volume directory;
                     otherwise, they are mounted relative to the compose file location.
@@ -69,7 +69,7 @@ class ComposeGenerator(AbstractGenerator):
         try:
             resp = self.get_chain().invoke(prompt_params)
         except Exception as ex:
-            raise  ModelFailedToRespond() from ex
+            raise ModelFailedToRespond() from ex
 
         if not resp or not resp.text():
             raise ModelFailedToRespond()
@@ -190,7 +190,7 @@ class ComposeGenerator(AbstractGenerator):
         Raises:
             ValidationError: one of the following criteria is met
                 - a service is generated twice
-                - invalid environment format (if applicable) 
+                - invalid environment format (if applicable)
         """
 
         if not environment or not service or service in self.env_store:
