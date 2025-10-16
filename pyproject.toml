@@ -1,6 +1,6 @@
 [project]
 name = "devops-final-backend"
-version = "0.1.0"
+version = "0.4.0"
 description = "FastAPI Backend for the DevOps Final Project"
 readme = "README.md"
 authors = [
@@ -13,7 +13,10 @@ dependencies = [
     "pydantic-settings>=2.11.0",
     "python-multipart>=0.0.20",
     "uvicorn[standard]>=0.37.0",
-    "langchain=0.3.27"
+    "langchain==0.3.27",
+    "langchain-ollama>=0.3.10",
+    "langchain-community>=0.3.30",
+    "python-keycloak>=5.8.1",
 ]
 
 [project.scripts]
@@ -27,3 +30,28 @@ build-backend = "hatchling.build"
 line-length = 120
 fix = true
 lint.extend-select = ["I"]
+
+[tool.pylint]
+ignore = ["venv", ".env", "build", "dist"]
+disable = [
+    "C0114",  # missing-module-docstring
+    "R0903",  # too-few-public-methods
+    "R0801",  # duplicate-code
+    "W0621",  # redefined-outer-name
+    "W0104",  # pointless-statement
+]
+output-format = "colorized"
+good-names = ["i", "j", "k", "ex", "Run", "_"]
+max-line-length = 120
+extension-pkg-whitelist = ["pydantic"]
+ignored-modules = ["typing_extensions"]
+
+[dependency-groups]
+dev = [
+    "myst-parser>=4.0.1",
+    "pylint>=4.0.0",
+    "ruff>=0.14.0",
+    "sphinx>=8.2.3",
+    "sphinx-autodoc-typehints>=3.5.2",
+    "sphinx-rtd-theme>=3.0.2",
+]
