@@ -13,3 +13,7 @@ def main() -> None:
         run("devops_final_backend:app", reload=True, port=8000)
     else:
         run("devops_final_backend:app", host="0.0.0.0", port=80)
+
+
+if __name__ == "__main__":
+    main()

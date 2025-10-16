@@ -42,16 +42,15 @@ class ComposeGenerator(AbstractGenerator):
         Generate a Docker Compose file using a Large Language Model (LLM).
 
         Args:
-            prompt_params (dict[str, Any]): Parameters injected into the LLM prompt.
-                Expected keys:
-                    - services (list[str]): List of service definitions to include in the compose file.
-                    Each entry may specify an image in one of the following forms:
-                    "redis", "mariadb:12", "quay.io/keycloak/keycloak:26.3.2", etc.
-                    - network_name (str): Name of the Docker network to include in the compose file.
-                    - network_exists (bool): If True, the network is declared as external;
-                    otherwise, a new network definition is created.
-                    - volume_mount (bool): If True, volumes are mounted in Docker’s default volume directory;
-                    otherwise, they are mounted relative to the compose file location.
+            prompt_params (dict[str, Any]): Parameters injected into the LLM prompt.Expected keys:
+                - services (list[str]): List of service definitions to include in the compose file.
+                Each entry may specify an image in one of the following forms:
+                "redis", "mariadb:12", "quay.io/keycloak/keycloak:26.3.2", etc.
+                - network_name (str): Name of the Docker network to include in the compose file.
+                - network_exists (bool): If True, the network is declared as external;
+                otherwise, a new network definition is created.
+                - volume_mount (bool): If True, volumes are mounted in Docker’s default volume directory;
+                otherwise, they are mounted relative to the compose file location.
 
         Raises:
             InvalidModelParams: If any expected parameters (as defined in TASK_PROMPT_PARAMS) are missing or invalid.
@@ -142,6 +141,7 @@ class ComposeGenerator(AbstractGenerator):
 
         Raises:
             ValidationError: one of the following criteria is met
+
                 - invalid yaml
                 - networks element missing or empty
                 - services element missing or empty

@@ -15,15 +15,14 @@ class AbstractGenerator(ABC):
     """An abstraction of the LLM Generator that contains common or required methods
 
     Class Constants:
+
     - TEMPERATURE (int): controls model imagination
     - SYSTEM_PROMPT (str): describes the role assumed by the LLM
-    - TASK_PROMPT_TEMPLATE (str): describes the task the LLM will perform with
-        templated slots for runtime variables
+    - TASK_PROMPT_TEMPLATE (str): describes the task the LLM will perform with templated slots for runtime variables
     - TASK_PROMPT_PARAMS (list[str]): variables required for the prompt
     - TASK_PROMPT_RETRY (str): templated instruction to use when attempting to regenerate a bad response
     """
 
-    REQUIRED_CONSTANTS = ["MODEL", "TEMPERATURE", "SYSTEM_PROMPT", "TASK_PROMPT_TEMPLATE", "TASK_PROMPT_PARAMS"]
     TEMPERATURE = 0
     SYSTEM_PROMPT = "You are a senior DevOps engineer."
     TASK_PROMPT_TEMPLATE = (
