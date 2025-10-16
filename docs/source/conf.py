@@ -12,9 +12,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'DevOps Final - LLM Compose Generator'
-copyright = '2025, Tudor Huza'
-author = 'Tudor Huza'
+project = "DevOps Final - LLM Compose Generator"
+copyright = "2025, Tudor Huza"
+author = "Tudor Huza"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -33,7 +33,7 @@ source_suffix = {
     ".md": "markdown",
 }
 
-templates_path = ['_templates']
+templates_path = ["_templates"]
 exclude_patterns = []
 
 
@@ -44,15 +44,18 @@ napoleon_numpy_docstring = False
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_rtd_theme'
-html_static_path = ['_static']
+html_theme = "sphinx_rtd_theme"
+html_static_path = ["_static"]
 html_css_files = ["custom.css"]
+
 
 def skip_pydantic_validator(app, what, name, obj, skip, options):
     from pydantic import field_validator  # noqa: F401
+
     if hasattr(obj, "__pydantic_validator__"):
         return True
     return skip
+
 
 def setup(app):
     app.connect("autodoc-skip-member", skip_pydantic_validator)
