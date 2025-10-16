@@ -45,10 +45,49 @@ or
 
 ```sh
 uv venv
-uv pip install r
+uv pip install r requirements.txt
 ```
 
 ### 2. Environment File
 
 Use the template file called `.env.example` to create `.env` and populate it with the appropiate values.
 Apply the same for the `env.keycloak.example` used for the docker compose container env
+
+## Commands
+
+### Running the Application
+
+```sh
+uv run devops-final-backend
+```
+
+### Managing Documentation
+
+Compile the [requirements.txt](requirements.txt)
+
+```sh
+uv export -o requirements.txt --no-header --no-hashes
+```
+
+Create the rst files
+
+- for python modules
+
+```sh
+uv run python docs/source/generate_api_docs.py   
+```
+
+- for the README
+
+*this requires the pandoc utility to be installed*
+
+```sh
+pandoc README.md -f markdown -t rst -o docs/source/README.rst
+```
+
+
+Compile the HTML files
+
+```sh
+uv run sphinx-build -b html docs/source docs/build    
+```

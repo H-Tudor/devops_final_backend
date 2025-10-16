@@ -1,6 +1,6 @@
 [project]
 name = "devops-final-backend"
-version = "0.3.0"
+version = "0.4.0"
 description = "FastAPI Backend for the DevOps Final Project"
 readme = "README.md"
 authors = [
@@ -48,6 +48,10 @@ ignored-modules = ["typing_extensions"]
 
 [dependency-groups]
 dev = [
+    "myst-parser>=4.0.1",
     "pylint>=4.0.0",
     "ruff>=0.14.0",
+    "sphinx>=8.2.3",
+    "sphinx-autodoc-typehints>=3.5.2",
+    "sphinx-rtd-theme>=3.0.2",
 ]
