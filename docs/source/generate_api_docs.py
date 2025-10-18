@@ -12,9 +12,13 @@ if api_dir.exists():
 
 os.makedirs(api_dir, exist_ok=True)
 
-subprocess.run([
-    "sphinx-apidoc",
-    "-o", api_dir,
-    pkg_dir,
-    "--force",
-], check=True)
+subprocess.run(
+    [
+        "sphinx-apidoc",
+        "-o",
+        api_dir,
+        pkg_dir,
+        "--force",
+    ],
+    check=True,
+)

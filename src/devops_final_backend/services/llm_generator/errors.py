@@ -1,3 +1,10 @@
+"""LLM Generator Specific Errors
+
+These errors are thrown intentionally to break the flow and transport their message to the caller.\
+Also they serve as known points of failure
+"""
+
+
 class LLMError(Exception):
     """Base Exception for LLM Generator module related erros.
 

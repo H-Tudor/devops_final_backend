@@ -33,13 +33,8 @@ lint.extend-select = ["I"]
 
 [tool.pylint]
 ignore = ["venv", ".env", "build", "dist"]
-disable = [
-    "C0114",  # missing-module-docstring
-    "R0903",  # too-few-public-methods
-    "R0801",  # duplicate-code
-    "W0621",  # redefined-outer-name
-    "W0104",  # pointless-statement
-]
+load-plugins = ["pylint.extensions.docparams"]
+disable = []
 output-format = "colorized"
 good-names = ["i", "j", "k", "ex", "Run", "_"]
 max-line-length = 120

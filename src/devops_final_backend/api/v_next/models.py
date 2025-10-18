@@ -1,6 +1,13 @@
-import re
+"""vNext API Models Definition
 
-from pydantic import BaseModel, Field, field_validator
+These are pydantic models that both define and validate the API inputs and
+return http status 422 if requirements are not met
+"""
+
+import re
+from typing import Annotated
+
+from pydantic import BaseModel, Field, StrictBool, field_validator
 
 IMAGE_REGEX = re.compile(
     r"^(?:[a-z0-9._-]+(?:/[a-z0-9._-]+)*)"  # multi-level repo
@@ -8,27 +15,21 @@ IMAGE_REGEX = re.compile(
 )
 
 
-class ComposeGenerationParameters(BaseModel):
+class ComposeGenerationParameters(BaseModel, extra="forbid"):
     """
     Docker Compose File generation parameters as expected by ComposeGenerator
     """
 
-    services: list[str] = Field(
-        description="""
-            Services to deploy as a list or comma-separated string.
-            Each service must be provided as 'name:version' with a length of no more than 64
-            and with only the following chars: a-z, A-Z, 0-9, [., _, -, :, +] 
-            """
+    services: list[Annotated[str, Field(max_length=64, pattern=r"^[a-zA-Z0-9._\-:+]+$")]] = Field(
+        ...,
+        description="Services to deploy as 'name:version'. Allowed chars: a-z, A-Z, 0-9, [., _, -, :, +].",
+        min_length=1,
     )
-    network_name: str = Field(
-        max_length=32,
-        description="""
-            Name of the network the generated docker compose will use 
-            The name will have a length of no more than 32 chars and no spaces
-            """,
+    network_name: Annotated[str, Field(max_length=32, pattern=r"^\S+$")] = Field(
+        ..., description="Name of the network, max 32 chars, no spaces."
     )
-    network_exists: bool
-    volume_mount: bool
+    network_exists: StrictBool
+    volume_mount: StrictBool
 
     @classmethod
     @field_validator("services", mode="before")

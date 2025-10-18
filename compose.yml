@@ -1,7 +1,7 @@
 services:
-  keycloack:
+  keycloak:
     image: quay.io/keycloak/keycloak:26.3.2
-    container_name: devops-final-keycloack
+    container_name: devops-final-keycloak
     command: ["start-dev", "--health-enabled=true", "--metrics-enabled=true"]
     env_file:
       - .env.keycloak

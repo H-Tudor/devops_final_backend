@@ -24,8 +24,8 @@ limitting
 
 In order to controll access to this application, all LLM generation
 endpoints are guarded by a bearer token authentification, the token
-being provided and checked by a keycloack instance. Each client service
-will have a user / password account in the app’s realm in keycloack and
+being provided and checked by a keycloak instance. Each client service
+will have a user / password account in the app’s realm in keycloak and
 the tokens generated are short lived (default 5 minutes) with the option
 to refresh them.
 
@@ -39,8 +39,8 @@ production at ``/docs/`` endpoint.
 Setup
 -----
 
-This application requires a keycloack instance for authentification of
-client services, and the keycloack shoul have a realm with - a
+This application requires a keycloak instance for authentification of
+client services, and the keycloak shoul have a realm with - a
 confidential client setup for direct access - a user with password for
 each client service (frontend) that will be using the API
 
@@ -68,40 +68,24 @@ populate it with the appropiate values. Apply the same for the
 Commands
 --------
 
-Running the Application
-~~~~~~~~~~~~~~~~~~~~~~~
+Running the application
 
 .. code:: sh
 
    uv run devops-final-backend
 
-Managing Documentation
-~~~~~~~~~~~~~~~~~~~~~~
+For a more commands, check the `usefull comands
+file <./usefull_commands.sh>`__
 
-Compile the `requirements.txt <requirements.txt>`__
+Testing
+-------
 
-.. code:: sh
-
-   uv export -o requirements.txt --no-header --no-hashes
-
-Create the rst files
-
--  for python modules
+Run the unit & integration tests using the following command:
 
 .. code:: sh
 
-   uv run python docs/source/generate_api_docs.py   
+   uv pytest
 
--  for the README
-
-*this requires the pandoc utility to be installed*
-
-.. code:: sh
-
-   pandoc README.md -f markdown -t rst -o docs/source/README.rst
-
-Compile the HTML files
-
-.. code:: sh
-
-   uv run sphinx-build -b html docs/source docs/build    
+The API is tested using schemathesis and during testing it requires an
+available keycloak instance and configured in settings a test_username
+and test_password

@@ -1,3 +1,5 @@
+"""Specialized Generator for Docker Compose"""
+
 from typing import Any
 
 from yaml import YAMLError, safe_dump, safe_load
@@ -32,10 +34,11 @@ class ComposeGenerator(AbstractGenerator):
     TASK_PROMPT_PARAMS = ["network_name", "network_exists", "services", "volume_mount"]
     TASK_PROMPT_RETRY = "The previous configuration was invalid because {error}. Regenerate the entire YAML"
 
-    def __init__(self):
+    def __init__(self, dry_run: bool = False):
         """Init the abstract generator and create an empty env store"""
         super().__init__()
         self.env_store: dict[str, dict] = {}
+        self.dry_run = dry_run
 
     def run(self, prompt_params: dict[str, Any]) -> list[LLMResponse]:
         """
@@ -64,6 +67,15 @@ class ComposeGenerator(AbstractGenerator):
         result = []
         self.validate_params(prompt_params)
         self.assign_param_defaults(prompt_params)
+
+        if self.dry_run:
+            return [
+                LLMResponse(
+                    type=ResponseType.NO_RESPONSE,
+                    name="dummy",
+                    data="Lorem Ipsum",
+                )
+            ]
 
         try:
             resp = self.get_chain().invoke(prompt_params)

@@ -1,3 +1,5 @@
+"""Abstract generator from which all inherit"""
+
 from abc import ABC, abstractmethod
 from typing import Any
 

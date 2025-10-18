@@ -18,9 +18,9 @@ As a Proof-of-Concept, the application does not have certain features like
 - request rate limitting 
 
 In order to controll access to this application, all LLM generation endpoints are guarded
-by a bearer token authentification, the token being provided and checked by a keycloack
+by a bearer token authentification, the token being provided and checked by a keycloak
 instance. Each client service will have a user / password account in the app's realm
-in keycloack and the tokens generated are short lived (default 5 minutes) with the option
+in keycloak and the tokens generated are short lived (default 5 minutes) with the option
 to refresh them.
 
 In terms of the LLM models used, the app can be configured via the environment file to use
@@ -30,8 +30,8 @@ The application API documentation can be accessed while not in production at `/d
 
 ## Setup
 
-This application requires a keycloack instance for authentification of client services, 
-and the keycloack shoul have a realm with
+This application requires a keycloak instance for authentification of client services, 
+and the keycloak shoul have a realm with
 - a confidential client setup for direct access
 - a user with password for each client service (frontend) that will be using the API
 
@@ -55,39 +55,21 @@ Apply the same for the `env.keycloak.example` used for the docker compose contai
 
 ## Commands
 
-### Running the Application
+Running the application
 
 ```sh
 uv run devops-final-backend
 ```
 
-### Managing Documentation
+For a more commands, check the [usefull comands file](./usefull_commands.sh)
 
-Compile the [requirements.txt](requirements.txt)
+## Testing
 
-```sh
-uv export -o requirements.txt --no-header --no-hashes
+Run the unit & integration tests using the following command:
+
+```sh 
+uv pytest
 ```
 
-Create the rst files
-
-- for python modules
-
-```sh
-uv run python docs/source/generate_api_docs.py   
-```
-
-- for the README
-
-*this requires the pandoc utility to be installed*
-
-```sh
-pandoc README.md -f markdown -t rst -o docs/source/README.rst
-```
-
-
-Compile the HTML files
-
-```sh
-uv run sphinx-build -b html docs/source docs/build    
-```
+The API is tested using schemathesis and during testing it requires an available keycloak instance 
+and configured in settings a test_username and test_password
