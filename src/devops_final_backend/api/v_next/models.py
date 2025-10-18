@@ -28,8 +28,12 @@ class ComposeGenerationParameters(BaseModel, extra="forbid"):
     network_name: Annotated[str, Field(max_length=32, pattern=r"^\S+$")] = Field(
         ..., description="Name of the network, max 32 chars, no spaces."
     )
-    network_exists: StrictBool
-    volume_mount: StrictBool
+    network_exists: StrictBool = Field(
+        ..., description="Adds the new services on an existing external network or creates a dedicated new network"
+    )
+    volume_mount: StrictBool = Field(
+        ..., description="Mount the volumes in Docker's default volume directory or relative to the compose file"
+    )
 
     @classmethod
     @field_validator("services", mode="before")

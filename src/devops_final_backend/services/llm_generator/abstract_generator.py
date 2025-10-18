@@ -10,7 +10,7 @@ from langchain_core.runnables import Runnable
 from devops_final_backend.settings import settings
 
 from .errors import InvalidModelParameters
-from .models import LLMResponse
+from .models import LLMResponse, ResponseType
 
 
 class AbstractGenerator(ABC):
@@ -23,6 +23,7 @@ class AbstractGenerator(ABC):
     - TASK_PROMPT_TEMPLATE (str): describes the task the LLM will perform with templated slots for runtime variables
     - TASK_PROMPT_PARAMS (list[str]): variables required for the prompt
     - TASK_PROMPT_RETRY (str): templated instruction to use when attempting to regenerate a bad response
+    - NO_RESPONSE (list[LLMResponse]): A dummy response list for situations where no generation is wanted
     """
 
     TEMPERATURE = 0
@@ -31,6 +32,13 @@ class AbstractGenerator(ABC):
         "Explain the following pipeline: architecture - services - docker compose - helm chart - terraform"
     )
     TASK_PROMPT_PARAMS = []
+    NO_RESPONSE = [
+        LLMResponse(
+            type=ResponseType.NO_RESPONSE,
+            name="dummy",
+            data="Lorem Ipsum",
+        )
+    ]
 
     @classmethod
     def get_chain(cls) -> Runnable:

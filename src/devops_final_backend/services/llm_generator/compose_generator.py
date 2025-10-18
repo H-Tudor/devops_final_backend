@@ -5,7 +5,7 @@ from typing import Any
 from yaml import YAMLError, safe_dump, safe_load
 
 from .abstract_generator import AbstractGenerator
-from .errors import InvalidModelResponse, ModelFailedToRespond, ValidationError
+from .errors import InvalidModelParameters, InvalidModelResponse, ModelFailedToRespond, ValidationError
 from .models import LLMResponse, ResponseType
 
 
@@ -52,7 +52,7 @@ class ComposeGenerator(AbstractGenerator):
                 - network_name (str): Name of the Docker network to include in the compose file.
                 - network_exists (bool): If True, the network is declared as external;
                 otherwise, a new network definition is created.
-                - volume_mount (bool): If True, volumes are mounted in Docker’s default volume directory;
+                - volume_mount (bool): If True, volumes are mounted in Docker's default volume directory;
                 otherwise, they are mounted relative to the compose file location.
 
         Raises:
@@ -69,13 +69,7 @@ class ComposeGenerator(AbstractGenerator):
         self.assign_param_defaults(prompt_params)
 
         if self.dry_run:
-            return [
-                LLMResponse(
-                    type=ResponseType.NO_RESPONSE,
-                    name="dummy",
-                    data="Lorem Ipsum",
-                )
-            ]
+            return self.NO_RESPONSE
 
         try:
             resp = self.get_chain().invoke(prompt_params)
@@ -86,7 +80,7 @@ class ComposeGenerator(AbstractGenerator):
             raise ModelFailedToRespond()
 
         try:
-            parsed_data = self.parse_compose_config(resp.text())
+            parsed_data = self.parse_compose_config(resp.text(), prompt_params)
         except ValidationError as err:
             if prompt_params.get("retry", False):
                 raise InvalidModelResponse(err.message) from err
@@ -119,7 +113,13 @@ class ComposeGenerator(AbstractGenerator):
 
         Args:
             prompt_params (dict[str, Any]): the values to be changed
+
+        Raises:
+            InvalidModelParameters: the services param is empty
         """
+
+        if not prompt_params["services"]:
+            raise InvalidModelParameters("services")
 
         prompt_params["services"] = (
             prompt_params["services"]
@@ -144,7 +144,7 @@ class ComposeGenerator(AbstractGenerator):
             "" if "retry" not in prompt_params else self.TASK_PROMPT_RETRY.format(error=prompt_params["error"])
         )
 
-    def parse_compose_config(self, content: str) -> dict:
+    def parse_compose_config(self, content: str, params: dict) -> dict:
         """Parse the content as a docker compose file yaml and check that required elements
         (services, network) are declared
 
@@ -169,8 +169,20 @@ class ComposeGenerator(AbstractGenerator):
         except YAMLError as err:
             raise ValidationError("safe_load could not load this yaml string") from err
 
-        if not data.get("networks", None):
+        if not data or not isinstance(data, dict):
+            raise ValidationError("empty yaml")
+
+        if not (networks := data.get("networks", None)):
             raise ValidationError("missing network configuration")
+
+        if params["network_name"] not in networks:
+            raise ValidationError("requested network name not present")
+
+        if (
+            params["network_exists"] == "already exists"
+            and networks[params["network_name"]].get("external", None) is not True
+        ):
+            raise ValidationError("requested network name not present")
 
         if not (services := data.get("services", None)):
             raise ValidationError("missing services configuration")
@@ -185,9 +197,13 @@ class ComposeGenerator(AbstractGenerator):
                 data["services"][service].pop("environment")
                 data["services"][service]["env_file"] = f".env.{service}"
 
-        for volume, params in data.get("volumes", {}).items():
-            if params is None:
-                data["volumes"][volume] = {}
+        if "volumes" in data:
+            if not data.get("volumes", {}):
+                raise ValidationError("volumes declared but empty")
+
+            for volume, vol_params in data.get("volumes", {}).items():
+                if vol_params is None:
+                    data["volumes"][volume] = {}
 
         return data
 

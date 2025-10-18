@@ -10,7 +10,8 @@ Within this package there are the model definitions which are versioned as well
 
 from fastapi import APIRouter, Body, status
 
-from devops_final_backend.services.llm_generator import ComposeGenerator, models
+from devops_final_backend.services.llm_generator import ComposeGenerator
+from devops_final_backend.services.llm_generator import models as llm_models
 from devops_final_backend.settings import settings
 
 from .models import ComposeGenerationParameters
@@ -31,7 +32,7 @@ router = APIRouter()
         status.HTTP_503_SERVICE_UNAVAILABLE: {"description": "Model Failed to generate response"},
     },
 )
-async def generate_compose(params: ComposeGenerationParameters = Body(...)) -> list[models.LLMResponse]:
+async def generate_compose(params: ComposeGenerationParameters = Body(...)) -> list[llm_models.LLMResponse]:
     """Api Endpoint for generating Docker Compose Files
 
     Args:
