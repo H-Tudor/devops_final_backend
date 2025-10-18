@@ -1,0 +1,18 @@
+generation.max-examples = 1
+request-timeout = 180.0
+
+[checks]
+ignored_auth.enabled = true
+not_a_server_error.enabled = true
+status_code_conformance.enabled = true
+content_type_conformance.enabled = true
+response_headers_conformance.enabled = true
+response_schema_conformance.enabled = true
+negative_data_rejection.enabled = true
+positive_data_acceptance.enabled = true
+missing_required_header.enabled = true
+unsupported_method.enabled = true
+
+[[operations]]
+include-name = "GET /"
+enabled = false

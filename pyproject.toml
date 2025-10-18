@@ -1,6 +1,6 @@
 [project]
 name = "devops-final-backend"
-version = "0.4.0"
+version = "0.5.0"
 description = "FastAPI Backend for the DevOps Final Project"
 readme = "README.md"
 authors = [
@@ -49,4 +49,6 @@ dev = [
     "sphinx>=8.2.3",
     "sphinx-autodoc-typehints>=3.5.2",
     "sphinx-rtd-theme>=3.0.2",
+    "pytest>=8.4.2",
+    "schemathesis>=4.3.3",
 ]

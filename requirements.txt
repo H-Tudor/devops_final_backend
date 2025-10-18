@@ -51,6 +51,7 @@ dill==0.4.0
     # via pylint
 docutils==0.21.2
     # via
+    #   myst-parser
     #   sphinx
     #   sphinx-rtd-theme
 fastapi==0.118.0
@@ -88,7 +89,9 @@ imagesize==1.4.1
 isort==7.0.0
     # via pylint
 jinja2==3.1.6
-    # via sphinx
+    # via
+    #   myst-parser
+    #   sphinx
 jsonpatch==1.33
     # via langchain-core
 jsonpointer==3.0.0
@@ -116,18 +119,27 @@ langsmith==0.4.32
     #   langchain
     #   langchain-community
     #   langchain-core
+markdown-it-py==3.0.0
+    # via
+    #   mdit-py-plugins
+    #   myst-parser
 markupsafe==3.0.3
     # via jinja2
 marshmallow==3.26.1
     # via dataclasses-json
 mccabe==0.7.0
     # via pylint
+mdit-py-plugins==0.5.0
+    # via myst-parser
+mdurl==0.1.2
+    # via markdown-it-py
 multidict==6.7.0
     # via
     #   aiohttp
     #   yarl
 mypy-extensions==1.1.0
     # via typing-inspect
+myst-parser==4.0.1
 numpy==2.3.3
     # via langchain-community
 ollama==0.6.0
@@ -179,6 +191,7 @@ pyyaml==6.0.3
     #   langchain
     #   langchain-community
     #   langchain-core
+    #   myst-parser
     #   uvicorn
 requests==2.32.5
     # via
@@ -201,6 +214,7 @@ snowballstemmer==3.0.1
     # via sphinx
 sphinx==8.2.3
     # via
+    #   myst-parser
     #   sphinx-autodoc-typehints
     #   sphinx-rtd-theme
     #   sphinxcontrib-jquery

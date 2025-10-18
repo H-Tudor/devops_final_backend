@@ -9,6 +9,7 @@ Subpackages
 
    devops_final_backend.api
    devops_final_backend.services
+   devops_final_backend.tests
 
 Submodules
 ----------
