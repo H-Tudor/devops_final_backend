@@ -89,3 +89,32 @@ Run the unit & integration tests using the following command:
 The API is tested using schemathesis and during testing it requires an
 available keycloak instance and configured in settings a test_username
 and test_password
+
+Developer Notes
+---------------
+
+PreCommit Strategy
+~~~~~~~~~~~~~~~~~~
+
+This repository is configured with a precommit configuration comprised
+of the following stages:
+
+Generic precommit checks: - trim trailing whitespace - fix end of files
+- check yaml - check for added large files
+
+Code linting using - ruff check & format - mypy - pylint
+
+These linter cover not just the code but typing and docs too, thus
+ensuring the developer has documented their code.
+
+Automation of manual actions - running the unit tests using pytest, to
+ensure that when commiting a code change it is atomically functional -
+clearing the caches - exporting the requirements file if packages
+changed - building the documentation
+
+As a developer, in order to prevent commit failures, you should manually
+run these checks before commiting the code using
+
+.. code:: sh
+
+   uv run pre-commit run --all-files

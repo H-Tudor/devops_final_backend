@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     app_name: str
     app_version: str
     debug: bool = False
+    disable_api_testing: bool = False
 
     # LLM
     llm_model: str
@@ -29,4 +30,4 @@ class Settings(BaseSettings):
     keycloak_test_password: str | None = None
 
 
-settings = Settings()
+settings = Settings.model_validate({})

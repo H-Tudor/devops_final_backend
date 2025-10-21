@@ -1,4 +1,4 @@
-""" Test 10: API Testing using Schemathesis
+"""Test 10: API Testing using Schemathesis
 
 Schemathesis is a powerful api testing tool that interprets the openapi.json
 schema of an API then generates limit-tests to check that the code correctly
@@ -55,5 +55,6 @@ def test_api(case: Case):
         case (Case): the case being tested
     """
 
+    settings.llm_dry_run = True
     with TestClient(app) as client:
-        case.call_and_validate(session=client)
+        case.call_and_validate(session=client)  # type: ignore[arg-type]

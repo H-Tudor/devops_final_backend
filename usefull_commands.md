@@ -1,5 +1,19 @@
 # Usefull comands
 
+## Pre-Commit Hooks
+
+### Install
+
+```sh
+uv run pre-commit install && uv run pre-commit install-hooks
+```
+
+### Run
+
+```sh
+uv run pre-commit run --all-files
+```
+
 ## Compile the [requirements.txt](requirements.txt)
 
 ```sh
@@ -11,10 +25,16 @@ uv export -o requirements.txt --no-header --no-hashes
 ```sh
 uv run ruff check
 uv run ruff format
-uv run ruff clena
+uv run ruff clear
 ```
 
-## Run pylint
+## Lint files with mypy
+
+```sh
+uv run mypy src/devops_final_backend
+```
+
+## Lint files with pylint
 
 ```sh
 uv run pylint src/devops_final_backend

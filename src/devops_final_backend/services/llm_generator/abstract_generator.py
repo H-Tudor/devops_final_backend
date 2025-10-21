@@ -26,13 +26,13 @@ class AbstractGenerator(ABC):
     - NO_RESPONSE (list[LLMResponse]): A dummy response list for situations where no generation is wanted
     """
 
-    TEMPERATURE = 0
-    SYSTEM_PROMPT = "You are a senior DevOps engineer."
-    TASK_PROMPT_TEMPLATE = (
+    TEMPERATURE: int = 0
+    SYSTEM_PROMPT: str = "You are a senior DevOps engineer."
+    TASK_PROMPT_TEMPLATE: str = (
         "Explain the following pipeline: architecture - services - docker compose - helm chart - terraform"
     )
-    TASK_PROMPT_PARAMS = []
-    NO_RESPONSE = [
+    TASK_PROMPT_PARAMS: list[str] = []
+    NO_RESPONSE: list[LLMResponse] = [
         LLMResponse(
             type=ResponseType.NO_RESPONSE,
             name="dummy",

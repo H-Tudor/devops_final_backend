@@ -55,7 +55,7 @@ def skip_pydantic(app, what, name, obj, skip, options):
 
     Args:
         app (sphinx.application.Sphinx): The Sphinx application object.
-        what (str): The type of the object which the docstring belongs to 
+        what (str): The type of the object which the docstring belongs to
             (e.g., "module", "class", "method", "function").
         name (str): The name of the object.
         obj (Any): The object itself.

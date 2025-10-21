@@ -1,6 +1,6 @@
 [project]
 name = "devops-final-backend"
-version = "0.5.0"
+version = "0.6.0"
 description = "FastAPI Backend for the DevOps Final Project"
 readme = "README.md"
 authors = [
@@ -22,25 +22,6 @@ dependencies = [
 [project.scripts]
 devops-final-backend = "devops_final_backend:main"
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[tool.ruff]
-line-length = 120
-fix = true
-lint.extend-select = ["I"]
-
-[tool.pylint]
-ignore = ["venv", ".env", "build", "dist"]
-load-plugins = ["pylint.extensions.docparams"]
-disable = []
-output-format = "colorized"
-good-names = ["i", "j", "k", "ex", "Run", "_"]
-max-line-length = 120
-extension-pkg-whitelist = ["pydantic"]
-ignored-modules = ["typing_extensions"]
-
 [dependency-groups]
 dev = [
     "myst-parser>=4.0.1",
@@ -51,4 +32,36 @@ dev = [
     "sphinx-rtd-theme>=3.0.2",
     "pytest>=8.4.2",
     "schemathesis>=4.3.3",
+    "pre-commit>=4.3.0",
+    "mypy>=1.18.2",
+    "types-pyyaml>=6.0.12.20250915",
 ]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 120
+fix = true
+lint.extend-select = ["I"]
+cache-dir = ".cache/ruff"
+
+[tool.pylint]
+ignore = ["venv", ".env", "build", "dist"]
+load-plugins = ["pylint.extensions.docparams"]
+disable = []
+output-format = "colorized"
+good-names = ["i", "j", "k", "ex", "Run", "_"]
+max-line-length = 120
+max-branches=15
+extension-pkg-whitelist = ["pydantic"]
+ignored-modules = ["typing_extensions"]
+
+[tool.pytest.ini_options]
+cache_dir = ".cache/pytest"
+
+[tool.mypy]
+explicit_package_bases = true
+mypy_path = ["src"]
+cache_dir = ".cache/mypy"

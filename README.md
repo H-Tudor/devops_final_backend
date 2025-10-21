@@ -8,14 +8,14 @@ This is a FastAPI-based API that allows the generation of docker compose files b
 on a list of desired services and other configuration parameters.
 
 This application is intended to be used by external client services instead of directly by
-human users allowing a degree of extensibility, but at the same time it is a 
+human users allowing a degree of extensibility, but at the same time it is a
 Proof-of-Concept, suitable for small scale use
 
 As a Proof-of-Concept, the application does not have certain features like
 - a database for its own state (like tracking consumption of tokens by client services)
 - a queue of llm-requests that are processed based on availability
 - a cache of previous generation
-- request rate limitting 
+- request rate limitting
 
 In order to controll access to this application, all LLM generation endpoints are guarded
 by a bearer token authentification, the token being provided and checked by a keycloak
@@ -30,7 +30,7 @@ The application API documentation can be accessed while not in production at `/d
 
 ## Setup
 
-This application requires a keycloak instance for authentification of client services, 
+This application requires a keycloak instance for authentification of client services,
 and the keycloak shoul have a realm with
 - a confidential client setup for direct access
 - a user with password for each client service (frontend) that will be using the API
@@ -67,9 +67,40 @@ For a more commands, check the [usefull comands file](./usefull_commands.sh)
 
 Run the unit & integration tests using the following command:
 
-```sh 
+```sh
 uv pytest
 ```
 
-The API is tested using schemathesis and during testing it requires an available keycloak instance 
+The API is tested using schemathesis and during testing it requires an available keycloak instance
 and configured in settings a test_username and test_password
+
+## Developer Notes
+
+### PreCommit Strategy
+
+This repository is configured with a precommit configuration comprised of the following stages:
+
+Generic precommit checks:
+- trim trailing whitespace
+- fix end of files
+- check yaml
+- check for added large files
+
+Code linting using
+- ruff check & format
+- mypy
+- pylint
+
+These linter cover not just the code but typing and docs too, thus ensuring the developer has documented their code.
+
+Automation of manual actions
+- running the unit tests using pytest, to ensure that when commiting a code change it is atomically functional
+- clearing the caches
+- exporting the requirements file if packages changed
+- building the documentation
+
+As a developer, in order to prevent commit failures, you should manually run these checks before commiting the code using
+
+```sh
+uv run pre-commit run --all-files
+```
