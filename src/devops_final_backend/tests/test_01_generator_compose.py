@@ -4,6 +4,8 @@ Test that conversions and parsing is working as expected for positive and negati
 Trigger the codded error cases
 """
 
+# pylint: disable=redefined-outer-name
+
 from typing import Any
 from unittest.mock import MagicMock
 
@@ -24,7 +26,6 @@ def generator():
     return ComposeGenerator(dry_run=True)
 
 
-# pylint: disable=redefined-outer-name
 def test_01_assign_param_defaults(generator: ComposeGenerator):
     """Check for a thrown error if no services are declared
 
@@ -43,7 +44,6 @@ def test_01_assign_param_defaults(generator: ComposeGenerator):
         generator.assign_param_defaults(params)
 
 
-# pylint: disable=redefined-outer-name
 def test_02_assign_param_first_run_negatives(generator: ComposeGenerator):
     """Check default values for missing or False inputs
 
@@ -66,7 +66,6 @@ def test_02_assign_param_first_run_negatives(generator: ComposeGenerator):
     assert params["volume_mount"] == "project folder"
 
 
-# pylint: disable=redefined-outer-name
 def test_03_assign_param_first_run_positives(generator: ComposeGenerator):
     """Check default values overwrite for present or True inputs
 
@@ -89,7 +88,6 @@ def test_03_assign_param_first_run_positives(generator: ComposeGenerator):
     assert params["volume_mount"] == "docker volumes"
 
 
-# pylint: disable=redefined-outer-name
 def test_04_assign_param_second_run(generator: ComposeGenerator):
     """Ensure formated values are not overwritten
 
@@ -112,7 +110,6 @@ def test_04_assign_param_second_run(generator: ComposeGenerator):
     assert params["volume_mount"] == "docker volumes"
 
 
-# pylint: disable=redefined-outer-name
 def test_05_parse_compose_config_first_variant(generator: ComposeGenerator):
     """Sanity Check: parsing for when bool params (network_exists, volume_mount) are True
 
@@ -152,7 +149,6 @@ def test_05_parse_compose_config_first_variant(generator: ComposeGenerator):
     assert "VAR1" in generator.env_store["redis"]
 
 
-# pylint: disable=redefined-outer-name
 def test_06_parse_compose_config_second_variant(generator: ComposeGenerator):
     """Sanity Check: parsing for when bool params (network_exists, volume_mount) are False
 
@@ -197,7 +193,6 @@ def test_06_parse_compose_config_second_variant(generator: ComposeGenerator):
     assert "environment" not in result["services"]["redis"]
 
 
-# pylint: disable=redefined-outer-name
 def test_07_parse_compose_config_missing_values(generator: ComposeGenerator):
     """Check if all the required errors are thrown when the compose configuration is invalid
 
@@ -262,7 +257,6 @@ def test_07_parse_compose_config_missing_values(generator: ComposeGenerator):
         generator.parse_compose_config(safe_dump(config), params)
 
 
-# pylint: disable=redefined-outer-name
 def test_08_env_vars_extract_dict(generator: ComposeGenerator):
     """Sanity Check: ensure correct dict env parsing
 
@@ -275,7 +269,6 @@ def test_08_env_vars_extract_dict(generator: ComposeGenerator):
     assert generator.env_store["service1"] == env
 
 
-# pylint: disable=redefined-outer-name
 def test_09_env_vars_extract_list(generator: ComposeGenerator):
     """Sanity Check: ensure correct list env parsing
 
@@ -288,7 +281,6 @@ def test_09_env_vars_extract_list(generator: ComposeGenerator):
     assert generator.env_store["service2"] == {"FOO": "bar", "BAZ": "qux"}
 
 
-# pylint: disable=redefined-outer-name
 def test_10_env_vars_extract_missing_prerequisites(generator: ComposeGenerator):
     """Check that ValidationErrors are being thrown for invalid environment
 
@@ -313,7 +305,6 @@ def test_10_env_vars_extract_missing_prerequisites(generator: ComposeGenerator):
         generator.env_vars_extract(service_name, env)
 
 
-# pylint: disable=redefined-outer-name
 def test_11_run_dry_run_returns_dummy(generator: ComposeGenerator):
     """Check that dry-run response works
 
@@ -334,7 +325,6 @@ def test_11_run_dry_run_returns_dummy(generator: ComposeGenerator):
     assert result[0].data == "Lorem Ipsum"
 
 
-# pylint: disable=redefined-outer-name
 def test_12_run_invalid_response_triggers_retry(monkeypatch):
     """Check that on retry failure ends with an invalid model response error.
 

@@ -30,6 +30,8 @@ The application API documentation can be accessed while not in production at `/d
 
 ## Setup
 
+In terms of python version, this app is constrained to 3.13 or higher
+
 This application requires a keycloak instance for authentification of client services,
 and the keycloak shoul have a realm with
 - a confidential client setup for direct access

@@ -3,20 +3,23 @@ name = "devops-final-backend"
 version = "0.6.0"
 description = "FastAPI Backend for the DevOps Final Project"
 readme = "README.md"
-authors = [
-    { name = "Tudor Huza", email = "huzatudor@gmail.com" }
-]
+authors = [{ name = "Tudor Huza", email = "huzatudor@gmail.com" }]
 requires-python = ">=3.13"
 dependencies = [
+    # API Depenecies
     "fastapi>=0.118.0",
     "httpx>=0.28.1",
     "pydantic-settings>=2.11.0",
     "python-multipart>=0.0.20",
     "uvicorn[standard]>=0.37.0",
+
+    # Auth Dependecies
+    "python-keycloak>=5.8.1",
+
+    # LLM Dependencies
     "langchain==0.3.27",
     "langchain-ollama>=0.3.10",
     "langchain-community>=0.3.30",
-    "python-keycloak>=5.8.1",
 ]
 
 [project.scripts]
@@ -24,17 +27,24 @@ devops-final-backend = "devops_final_backend:main"
 
 [dependency-groups]
 dev = [
-    "myst-parser>=4.0.1",
-    "pylint>=4.0.0",
+    # Linters
     "ruff>=0.14.0",
+    "pylint>=4.0.0",
+    "myst-parser>=4.0.1",
+    "mypy>=1.18.2",
+    "types-pyyaml>=6.0.12.20250915",
+
+    # Tests
+    "pytest>=8.4.2",
+    "schemathesis>=4.3.3",
+
+    # Docs
     "sphinx>=8.2.3",
     "sphinx-autodoc-typehints>=3.5.2",
     "sphinx-rtd-theme>=3.0.2",
-    "pytest>=8.4.2",
-    "schemathesis>=4.3.3",
+
+    # CI
     "pre-commit>=4.3.0",
-    "mypy>=1.18.2",
-    "types-pyyaml>=6.0.12.20250915",
 ]
 
 [build-system]
@@ -54,7 +64,7 @@ disable = []
 output-format = "colorized"
 good-names = ["i", "j", "k", "ex", "Run", "_"]
 max-line-length = 120
-max-branches=15
+max-branches = 15
 extension-pkg-whitelist = ["pydantic"]
 ignored-modules = ["typing_extensions"]
 
