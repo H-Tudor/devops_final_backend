@@ -9,7 +9,11 @@ wheels/
 # Virtual environments
 .venv
 .env
-.env.keycloak
-.env.devops_final_backend
+
+# Caches
 .hypothesis/
 .cache
+
+# Container Envs
+.env.keycloak
+.env.devops_final_backend
