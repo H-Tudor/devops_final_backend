@@ -1,4 +1,19 @@
 services:
+  postgres:
+    image: postgres:16
+    env_file:
+      - .env.keycloak
+    volumes:
+      - keycloak-db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - devops-final
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U keycloak"]
+      interval: 5s
+      retries: 5
+
   keycloak:
     image: quay.io/keycloak/keycloak:26.3.2
     container_name: devops-final-keycloak
@@ -14,20 +29,19 @@ services:
       postgres:
         condition: service_healthy
 
-  postgres:
-    image: postgres:16
+  devops_final_backend:
+    image: tudor0h/devops_final_backend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     env_file:
-      - .env.keycloak
-    volumes:
-      - keycloak-db-data:/var/lib/postgresql/data
+      - .env.devops_final_backend
     ports:
-      - "5432:5432"
+      - 8000:80
     networks:
       - devops-final
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U keycloak"]
-      interval: 5s
-      retries: 5
+    depends_on:
+      - keycloak
 
 volumes:
   keycloak-db-data:

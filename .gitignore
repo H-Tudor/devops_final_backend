@@ -10,5 +10,6 @@ wheels/
 .venv
 .env
 .env.keycloak
+.env.devops_final_backend
 .hypothesis/
 .cache

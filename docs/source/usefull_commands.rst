@@ -1,6 +1,23 @@
 Usefull comands
 ===============
 
+Docker container
+----------------
+
+Build the image
+~~~~~~~~~~~~~~~
+
+.. code:: sh
+
+   docker build . -t tudor0h/devops_final_backend:latest
+
+Run the container
+~~~~~~~~~~~~~~~~~
+
+.. code:: sh
+
+   docker run --env-file .env.devops_final_backend -p 8000:80 tudor0h/devops_final_backend:latest
+
 Pre-Commit Hooks
 ----------------
 
