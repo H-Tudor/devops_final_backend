@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:16
     env_file:
-      - .env.keycloak
+      - ./compose/.env.keycloak
     volumes:
       - keycloak-db-data:/var/lib/postgresql/data
     ports:
@@ -16,10 +16,9 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.3.2
-    container_name: devops-final-keycloak
     command: ["start-dev", "--health-enabled=true", "--metrics-enabled=true"]
     env_file:
-      - .env.keycloak
+      - ./compose/.env.keycloak
     ports:
       - 8080:8080
       - 9000:9000
@@ -35,7 +34,7 @@ services:
       context: .
       dockerfile: Dockerfile
     env_file:
-      - .env.devops_final_backend
+      - ./compose/.env.devops_final_backend
     ports:
       - 8000:80
     networks:
