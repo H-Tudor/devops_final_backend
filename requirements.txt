@@ -306,7 +306,7 @@ rpds-py==0.28.0
     # via
     #   jsonschema
     #   referencing
-ruff==0.14.1
+ruff==0.14.2
 schemathesis==4.3.10
 six==1.17.0
     # via

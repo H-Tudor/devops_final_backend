@@ -28,7 +28,7 @@ devops-final-backend = "devops_final_backend:main"
 [dependency-groups]
 dev = [
     # Linters
-    "ruff>=0.14.0",
+    "ruff>=0.14.2",
     "pylint>=4.0.0",
     "myst-parser>=4.0.1",
     "mypy>=1.18.2",
