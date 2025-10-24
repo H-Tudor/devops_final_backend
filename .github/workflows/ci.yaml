@@ -29,3 +29,17 @@ jobs:
 
       - name: Test with python ${{ matrix.python-version }}
         run: uv run --frozen pytest
+        env:
+          # this test env does contain dummy values as they are not used
+          APP_NAME: "Devops Final Test"
+          APP_VERSION: vNext
+          DEBUG: true
+          DISABLE_API_TESTING: false
+          LLM_MODEL: llama3.1
+          LLM_PROVIDER: ollama
+          KEYCLOAK_URL: http://keycloak
+          KEYCLOAK_REALM: realm
+          KEYCLOAK_CLIENT_ID: app
+          KEYCLOAK_CLIENT_SECRET: secret
+          KEYCLOAK_TEST_USERNAME: streamlit-app
+          KEYCLOAK_TEST_PASSWORD: streamlit-app
