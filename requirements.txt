@@ -115,7 +115,7 @@ hypothesis-jsonschema==0.23.1
     # via schemathesis
 identify==2.6.15
     # via pre-commit
-idna==3.10
+idna==3.11
     # via
     #   anyio
     #   httpx
