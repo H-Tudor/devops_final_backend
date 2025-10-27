@@ -22,13 +22,17 @@ class ComposeGenerator(AbstractGenerator):
     """
     TASK_PROMPT_TEMPLATE = """
     Generate a valid Docker Compose YAML configuration without anything else like code blocks.
-    Always include a 'networks' section defining network '{network_name}'.
+    Always include a 'networks' section defining the network '{network_name}'.
+    This network {network_exists}.
     Each service must explicitly reference this network.
-    Use or create this network according to: {network_exists}.
+    If a service version implies configuration changes (e.g. Keycloak ≥ 25),
+    always use the correct environment variable names and startup commands for that version.
     Deploy the following services: {services} at the specified versions with
     any additional dependent services required at latest major version known if not specified.
-    Declare all required volumes in the volumes section.
-    Map each declared volume to {volume_mount} using named volume references.
+    Do not mount local folders directly in service volume definition, instead use the dedicated volumes section.
+    Declare a volumes section only if there are container volumes and declare all the volumes in the volumes section.
+    If the volumes section is empty, remove it
+    For each volume use the local driver to mount the volume in {volume_mount}
     {additional_instructions}
     """
     TASK_PROMPT_PARAMS = ["network_name", "network_exists", "services", "volume_mount"]
@@ -131,13 +135,21 @@ class ComposeGenerator(AbstractGenerator):
         prompt_params["network_exists"] = (
             prompt_params["network_exists"]
             if isinstance(prompt_params["network_exists"], str)
-            else ("already exists" if prompt_params["network_exists"] else "should be created")
+            else (
+                "is an external network and should be marked as such"
+                if prompt_params["network_exists"]
+                else "does not exist and should be created"
+            )
         )
 
         prompt_params["volume_mount"] = (
             prompt_params["volume_mount"]
             if isinstance(prompt_params["volume_mount"], str)
-            else ("docker volumes" if prompt_params["volume_mount"] else "project folder")
+            else (
+                "the default docker volume folder"
+                if prompt_params["volume_mount"]
+                else "the local ./compose/[volume_name] folder"
+            )
         )
 
         prompt_params["additional_instructions"] = (
@@ -173,17 +185,17 @@ class ComposeGenerator(AbstractGenerator):
         if not data or not isinstance(data, dict):
             raise ValidationError("empty yaml")
 
-        if not (networks := data.get("networks", None)):
+        if not (networks := data.get("networks", {})):
             raise ValidationError("missing network configuration")
 
         if params["network_name"] not in networks:
             raise ValidationError("requested network name not present")
 
-        if (
-            params["network_exists"] == "already exists"
-            and networks[params["network_name"]].get("external", None) is not True
+        if params["network_exists"] == "is an external network and should be marked as such" and (
+            not networks.get(params["network_name"], {})
+            or networks.get(params["network_name"], {}).get("external", {}) is not True
         ):
-            raise ValidationError("requested network name not present")
+            raise ValidationError("requested external network not marked as external")
 
         if not (services := data.get("services", None)):
             raise ValidationError("missing services configuration")

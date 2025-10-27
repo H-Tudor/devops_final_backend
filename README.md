@@ -16,6 +16,7 @@ As a Proof-of-Concept, the application does not have certain features like
 - a queue of llm-requests that are processed based on availability
 - a cache of previous generation
 - request rate limitting
+- service environment variables discovery (as llm's output might be outdated and not know the current env var name)
 
 In order to controll access to this application, all LLM generation endpoints are guarded
 by a bearer token authentification, the token being provided and checked by a keycloak
