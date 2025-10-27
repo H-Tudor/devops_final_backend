@@ -72,12 +72,30 @@ def skip_pydantic(app, what, name, obj, skip, options):
         return True
 
     if name in {
-        "construct", "copy", "dict", "from_orm", "json", "model_construct",
-        "model_copy", "model_dump", "model_dump_json", "model_json_schema",
-        "model_parametrized_name", "model_post_init", "model_rebuild",
-        "model_validate", "model_validate_json", "model_validate_strings",
-        "parse_file", "parse_obj", "parse_raw", "schema", "schema_json",
-        "settings_customise_sources", "update_forward_refs", "validate"
+        "construct",
+        "copy",
+        "dict",
+        "from_orm",
+        "json",
+        "model_construct",
+        "model_copy",
+        "model_dump",
+        "model_dump_json",
+        "model_json_schema",
+        "model_parametrized_name",
+        "model_post_init",
+        "model_rebuild",
+        "model_validate",
+        "model_validate_json",
+        "model_validate_strings",
+        "parse_file",
+        "parse_obj",
+        "parse_raw",
+        "schema",
+        "schema_json",
+        "settings_customise_sources",
+        "update_forward_refs",
+        "validate",
     }:
         return True
 
