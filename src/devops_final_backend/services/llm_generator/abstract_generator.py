@@ -48,13 +48,33 @@ class AbstractGenerator(ABC):
             Runnable: invokeable LLM entity
         """
 
-        return ChatPromptTemplate.from_messages(
-            [("system", cls.SYSTEM_PROMPT), ("user", cls.TASK_PROMPT_TEMPLATE)]
-        ) | init_chat_model(
-            model=settings.llm_model,
-            model_provider=settings.llm_provider,
-            api_key=settings.llm_secret,
-            temperature=cls.TEMPERATURE,
+        match settings.llm_provider:
+            case "ollama":
+                chain = init_chat_model(
+                    model=settings.llm_model,
+                    model_provider=settings.llm_provider,
+                    temperature=cls.TEMPERATURE,
+                    base_url=settings.llm_base_url,
+                )
+
+            case "openai":
+                chain = init_chat_model(
+                    model=settings.llm_model,
+                    model_provider=settings.llm_provider,
+                    temperature=cls.TEMPERATURE,
+                    api_key=settings.llm_secret,
+                )
+
+            case _:
+                chain = init_chat_model(
+                    model=settings.llm_model,
+                    model_provider=settings.llm_provider,
+                    temperature=cls.TEMPERATURE,
+                )
+
+        return (
+            ChatPromptTemplate.from_messages([("system", cls.SYSTEM_PROMPT), ("user", cls.TASK_PROMPT_TEMPLATE)])
+            | chain
         )
 
     @classmethod
