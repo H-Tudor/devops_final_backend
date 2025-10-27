@@ -18,8 +18,9 @@ class Settings(BaseSettings):
     # LLM
     llm_model: str
     llm_provider: str
-    llm_secret: str | None = None
     llm_dry_run: bool = False
+    llm_secret: str | None = None
+    llm_base_url: str | None = None
 
     # Keycloak
     keycloak_url: str

@@ -62,8 +62,8 @@ def test_02_assign_param_first_run_negatives(generator: ComposeGenerator):
 
     assert params["services"] == "[ redis ], [ mariadb:12 ]"
     assert params["network_name"] == "demo_network"
-    assert params["network_exists"] == "should be created"
-    assert params["volume_mount"] == "project folder"
+    assert params["network_exists"] == "does not exist and should be created"
+    assert params["volume_mount"] == "the local ./compose/[volume_name] folder"
 
 
 def test_03_assign_param_first_run_positives(generator: ComposeGenerator):
@@ -84,8 +84,8 @@ def test_03_assign_param_first_run_positives(generator: ComposeGenerator):
 
     assert params["services"] == "[ redis ], [ mariadb:12 ]"
     assert params["network_name"] == "test_network"
-    assert params["network_exists"] == "already exists"
-    assert params["volume_mount"] == "docker volumes"
+    assert params["network_exists"] == "is an external network and should be marked as such"
+    assert params["volume_mount"] == "the default docker volume folder"
 
 
 def test_04_assign_param_second_run(generator: ComposeGenerator):
@@ -98,16 +98,16 @@ def test_04_assign_param_second_run(generator: ComposeGenerator):
     params = {
         "services": "[ redis ], [ mariadb:12 ]",
         "network_name": "test_network",
-        "network_exists": "already exists",
-        "volume_mount": "docker volumes",
+        "network_exists": "is an external network and should be marked as such",
+        "volume_mount": "the default docker volume folder",
     }
 
     generator.assign_param_defaults(params)
 
     assert params["services"] == "[ redis ], [ mariadb:12 ]"
     assert params["network_name"] == "test_network"
-    assert params["network_exists"] == "already exists"
-    assert params["volume_mount"] == "docker volumes"
+    assert params["network_exists"] == "is an external network and should be marked as such"
+    assert params["volume_mount"] == "the default docker volume folder"
 
 
 def test_05_parse_compose_config_first_variant(generator: ComposeGenerator):
@@ -120,8 +120,8 @@ def test_05_parse_compose_config_first_variant(generator: ComposeGenerator):
     params = {
         "services": "[ redis ]",
         "network_name": "default",
-        "network_exists": "should be created",
-        "volume_mount": "project folder ",
+        "network_exists": "does not exist and should be created",
+        "volume_mount": "the local ./compose/[volume_name] folder",
     }
     yaml_content = """
     version: 3
@@ -159,8 +159,8 @@ def test_06_parse_compose_config_second_variant(generator: ComposeGenerator):
     params = {
         "services": "[ redis ]",
         "network_name": "default",
-        "network_exists": "already exists",
-        "volume_mount": "docker volumes",
+        "network_exists": "is an external network and should be marked as such",
+        "volume_mount": "the default docker volume folder",
     }
     yaml_content = """
     version: 3
@@ -203,8 +203,8 @@ def test_07_parse_compose_config_missing_values(generator: ComposeGenerator):
     params = {
         "services": "[ redis ]",
         "network_name": "test_network",
-        "network_exists": "already exists",
-        "volume_mount": "docker volumes",
+        "network_exists": "is an external network and should be marked as such",
+        "volume_mount": "the default docker volume folder",
     }
 
     with pytest.raises(errors.ValidationError):

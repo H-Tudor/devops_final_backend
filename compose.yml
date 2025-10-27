@@ -29,7 +29,6 @@ services:
         condition: service_healthy
 
   devops_final_backend:
-    image: tudor0h/devops_final_backend:latest
     build:
       context: .
       dockerfile: Dockerfile
