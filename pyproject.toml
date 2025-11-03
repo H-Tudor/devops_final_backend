@@ -12,14 +12,13 @@ dependencies = [
     "pydantic-settings>=2.11.0",
     "python-multipart>=0.0.20",
     "uvicorn[standard]>=0.37.0",
-
     # Auth Dependecies
     "python-keycloak>=5.8.1",
-
     # LLM Dependencies
     "langchain==0.3.27",
     "langchain-ollama>=0.3.10",
     "langchain-community>=0.3.30",
+    "langchain-openai>=0.3.35",
 ]
 
 [project.scripts]
