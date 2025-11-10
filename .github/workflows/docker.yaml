@@ -5,6 +5,7 @@ on:
     branches:
       - master
     paths:
+      - .github
       - Dockerfile
       - pyproject.toml
       - src/devops_final_backend
