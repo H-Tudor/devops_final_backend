@@ -6,9 +6,7 @@ on:
       - master
     paths:
       - .github
-      - Dockerfile
-      - pyproject.toml
-      - src/devops_final_backend
+      - docs
   workflow_dispatch:
 
 jobs:
