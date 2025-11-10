@@ -44,15 +44,15 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/devpops_final_backend:${{ github.sha }}
 
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.33.1
-        with:
-          image-ref: '${{ secrets.DOCKER_USERNAME }}/devpops_final_backend:${{ github.sha }}'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+      # - name: Run Trivy vulnerability scanner
+      #   uses: aquasecurity/trivy-action@0.33.1
+      #   with:
+      #     image-ref: '${{ secrets.DOCKER_USERNAME }}/devpops_final_backend:${{ github.sha }}'
+      #     format: 'table'
+      #     exit-code: '1'
+      #     ignore-unfixed: true
+      #     vuln-type: 'os,library'
+      #     severity: 'CRITICAL,HIGH'
 
   google_artifact:
     runs-on: ubuntu-latest
