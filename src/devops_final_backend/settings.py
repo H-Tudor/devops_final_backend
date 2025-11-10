@@ -12,7 +12,9 @@ class Settings(BaseSettings):
 
     app_name: str
     app_version: str
+    app_port: int = 8000
     debug: bool = False
+
     disable_api_testing: bool = False
 
     # LLM

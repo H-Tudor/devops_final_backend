@@ -41,5 +41,3 @@ jobs:
           KEYCLOAK_REALM: realm
           KEYCLOAK_CLIENT_ID: app
           KEYCLOAK_CLIENT_SECRET: secret
-          KEYCLOAK_TEST_USERNAME: streamlit-app
-          KEYCLOAK_TEST_PASSWORD: streamlit-app
