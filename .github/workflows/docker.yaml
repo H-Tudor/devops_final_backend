@@ -94,7 +94,7 @@ jobs:
       - name: Checkout infra repo
         uses: actions/checkout@v3
         with:
-          repository: H-Tudor//${{ vars.INFRA_REPO }}
+          repository: H-Tudor/${{ vars.INFRA_REPO }}
           ref: master
           token: ${{ secrets.GH_PAT }} # PAT with repo read rights
           path: infra_repo
