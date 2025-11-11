@@ -99,6 +99,13 @@ jobs:
           token: ${{ secrets.GH_PAT }} # PAT with repo read rights
           path: infra_repo
 
+      - name: Install Tofu
+        run: |
+          curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh -o install-opentofu.sh
+          chmod +x install-opentofu.sh
+          ./install-opentofu.sh --install-method standalone
+          rm install-opentofu.sh
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v3
         with:
@@ -108,13 +115,6 @@ jobs:
         uses: google-github-actions/setup-gcloud@v3
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Install Tofu
-        run: |
-          curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh -o install-opentofu.sh
-          chmod +x install-opentofu.sh
-          ./install-opentofu.sh --install-method binary
-          rm install-opentofu.sh
 
       - name: Apply Terraform (Tofu)
         working-directory: infra_repo/03_terraform/services/${{ vars.INFRA_SERVICE_NAME }}
