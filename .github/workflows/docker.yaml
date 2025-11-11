@@ -95,6 +95,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: tudor_h/${{ vars.INFRA_REPO }}
+          ref: master
           token: ${{ secrets.GH_PAT }} # PAT with repo read rights
           path: infra_repo
 
