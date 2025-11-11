@@ -5,10 +5,10 @@ on:
     branches:
       - master
     paths:
-      - .github
+      - .github/**
       - Dockerfile
       - pyproject.toml
-      - src/devops_final_backend
+      - src/devops_final_backend/**
   workflow_dispatch:
 
 jobs:
