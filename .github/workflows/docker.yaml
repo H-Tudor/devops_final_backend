@@ -111,8 +111,10 @@ jobs:
 
       - name: Install Tofu
         run: |
-          curl -L https://github.com/opentofu/opentofu/releases/latest/download/tofu_$(uname -s | tr '[:upper:]' '[:lower:]')_amd64.zip -o tofu.zip
-          sudo unzip tofu.zip -d /usr/local/bin
+          curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh -o install-opentofu.sh
+          chmod +x install-opentofu.sh
+          ./install-opentofu.sh --install-method binary
+          rm install-opentofu.sh
 
       - name: Apply Terraform (Tofu)
         working-directory: infra_repo/03_terraform/services/${{ vars.INFRA_SERVICE_NAME }}
