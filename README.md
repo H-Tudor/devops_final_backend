@@ -64,7 +64,7 @@ Running the application
 uv run devops-final-backend
 ```
 
-For a more commands, check the [usefull comands file](./usefull_commands.sh)
+For a more commands, check the [usefull comands file](./usefull_commands.md)
 
 ## Testing
 
