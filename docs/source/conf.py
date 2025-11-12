@@ -34,7 +34,7 @@ source_suffix = {
 }
 
 templates_path = ["_templates"]
-exclude_patterns = ["api/modules.rst"]
+exclude_patterns = ["api/modules.rst", "*.tests*"]
 
 
 autodoc_typehints = "description"
