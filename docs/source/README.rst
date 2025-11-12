@@ -41,7 +41,7 @@ An frontend for this API can be found at `this
 repo <https://github.com/H-Tudor/devops_final_frontend>`__
 
 The deployment infrastructure configuration can be found
-`here <https://github.com/H-Tudor/devops_final_frontend>`__
+`here <https://github.com/H-Tudor/devops_final_infra>`__
 
 Setup
 -----
