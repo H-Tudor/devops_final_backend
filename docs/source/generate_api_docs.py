@@ -16,9 +16,13 @@ subprocess.run(
     [
         "sphinx-apidoc",
         "-o",
-        api_dir,
-        pkg_dir,
+        str(api_dir),
+        str(pkg_dir),
         "--force",
+        "-M",
+        "-E",
+        "tests",
+        "*/test_*.py",
     ],
     check=True,
 )

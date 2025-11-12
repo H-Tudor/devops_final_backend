@@ -1,6 +1,11 @@
 devops\_final\_backend.services package
 =======================================
 
+.. automodule:: devops_final_backend.services
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Subpackages
 -----------
 
@@ -9,11 +14,3 @@ Subpackages
 
    devops_final_backend.services.auth
    devops_final_backend.services.llm_generator
-
-Module contents
----------------
-
-.. automodule:: devops_final_backend.services
-   :members:
-   :show-inheritance:
-   :undoc-members:
