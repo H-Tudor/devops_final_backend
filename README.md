@@ -29,6 +29,10 @@ any model of any provider supported by LangChain (v0.3)
 
 The application API documentation can be accessed while not in production at `/docs/` endpoint.
 
+An frontend for this API can be found at [this repo](https://github.com/H-Tudor/devops_final_frontend)
+
+The deployment infrastructure configuration can be found [here](https://github.com/H-Tudor/devops_final_frontend)
+
 ## Setup
 
 In terms of python version, this app is constrained to 3.13 or higher
