@@ -59,7 +59,7 @@ jobs:
     environment: main
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v3
@@ -92,12 +92,19 @@ jobs:
 
     steps:
       - name: Checkout infra repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
         with:
-          repository: H-Tudor//${{ vars.INFRA_REPO }}
+          repository: H-Tudor/${{ vars.INFRA_REPO }}
           ref: master
           token: ${{ secrets.GH_PAT }} # PAT with repo read rights
           path: infra_repo
+
+      - name: Install Tofu
+        run: |
+          curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh -o install-opentofu.sh
+          chmod +x install-opentofu.sh
+          ./install-opentofu.sh --install-method standalone
+          rm install-opentofu.sh
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v3
@@ -108,11 +115,6 @@ jobs:
         uses: google-github-actions/setup-gcloud@v3
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Install Tofu
-        run: |
-          curl -L https://github.com/opentofu/opentofu/releases/latest/download/tofu_$(uname -s | tr '[:upper:]' '[:lower:]')_amd64.zip -o tofu.zip
-          sudo unzip tofu.zip -d /usr/local/bin
 
       - name: Apply Terraform (Tofu)
         working-directory: infra_repo/03_terraform/services/${{ vars.INFRA_SERVICE_NAME }}
