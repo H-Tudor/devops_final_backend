@@ -1,6 +1,11 @@
 devops\_final\_backend package
 ==============================
 
+.. automodule:: devops_final_backend
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Subpackages
 -----------
 
@@ -14,18 +19,8 @@ Subpackages
 Submodules
 ----------
 
-devops\_final\_backend.settings module
---------------------------------------
 
 .. automodule:: devops_final_backend.settings
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: devops_final_backend
    :members:
    :show-inheritance:
    :undoc-members:
