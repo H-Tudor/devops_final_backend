@@ -37,6 +37,12 @@ environment file to use any model of any provider supported by LangChain
 The application API documentation can be accessed while not in
 production at ``/docs/`` endpoint.
 
+An frontend for this API can be found at `this
+repo <https://github.com/H-Tudor/devops_final_frontend>`__
+
+The deployment infrastructure configuration can be found
+`here <https://github.com/H-Tudor/devops_final_frontend>`__
+
 Setup
 -----
 
